@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>News & Events | Mr. Gay World International</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+
+    theme: {
+      extend: {
+        colors: {
+          ink: '#120E17',
+          plum: '#241B2E',
+          plumlight: '#332740',
+          parchment: '#F3EDE4',
+          parchmentdark: '#E7DFD1',
+          sash: '#C6A15B',
+          sashlight: '#DDBE84',
+          signal: '#E14B3C',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F3EDE4; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.22em;
+    font-weight: 500;
+  }
+
+  /* Signature sash motif: a diagonal ribbon used as a section marker */
+  .sash-mark {
+    position: relative;
+    display: inline-block;
+    padding-left: 2rem;
+  }
+  .sash-mark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1.5rem;
+    height: 3px;
+    background: #C6A15B;
+    transform: translateY(-50%) rotate(-8deg);
+  }
+
+  .sash-divider {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent 0%, #C6A15B 15%, #C6A15B 85%, transparent 100%);
+    transform: rotate(-1deg);
+  }
+
+  .card-pillar {
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .card-pillar:hover {
+    transform: translateY(-6px);
+    border-color: #C6A15B;
+  }
+
+  .btn-primary {
+    background-color: #C6A15B;
+    color: #120E17;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+  }
+  .btn-primary:hover { background-color: #DDBE84; transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1.5px solid #F3EDE4;
+    color: #F3EDE4;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+  .btn-outline:hover { background-color: #F3EDE4; color: #120E17; transform: translateY(-2px); }
+
+  .btn-outline-dark {
+    border: 1.5px solid #120E17;
+    color: #120E17;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+  .btn-outline-dark:hover { background-color: #120E17; color: #F3EDE4; transform: translateY(-2px); }
+
+  /* Fallback layout for the hero, independent of the Tailwind CDN script.
+     cdn.tailwindcss.com compiles utility classes in the browser at runtime,
+     so on a slower/offline local connection (e.g. VS Code Live Server) it
+     can load after first paint, or get blocked outright, and the hero
+     would otherwise show blank until/unless it loads. These plain rules
+     guarantee the hero is visible immediately either way. */
+  #hero { position: relative; width: 100%; min-height: 100vh; overflow: hidden; background-color: var(--bg-black, #0B0A10); }
+  #hero-video-wrap { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-pillar, .btn-primary, .btn-outline, .btn-outline-dark { transition: none; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #C6A15B;
+    outline-offset: 3px;
+  }
+</style>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="font-body text-ink antialiased" data-page="news">
+
+<!-- ============================================================ -->
+<!-- SITE HEADER: LOGO + DESKTOP NAV + MOBILE MENU TOGGLE          -->
+<!-- ============================================================ -->
+<div class="fixed top-5 left-5 right-5 md:top-6 md:left-8 md:right-8 z-50 flex items-center justify-between pointer-events-none">
+  <a href="index.html" id="site-logo" aria-label="Mr. Gay World, back to home" class="flex items-center pointer-events-auto">
+    <img src="assets/MGWlogo.jpg" alt="Mr. Gay World logo" class="h-12 md:h-14 w-auto">
+  </a>
+
+  <!-- Desktop navigation, visible from md breakpoint up -->
+  <nav id="desktop-nav" aria-label="Primary" class="hidden md:flex items-center gap-6 pointer-events-auto rounded-full px-7 py-3">
+    <a href="index.html" data-page="index" class="nav-link">HOME</a>
+    <a href="about.html" data-page="about" class="nav-link">ABOUT</a>
+    <a href="network.html" data-page="network" class="nav-link">GET INVOLVED</a>
+    <a href="news.html" data-page="news" class="nav-link">NEWS</a>
+    <a href="contact.html" data-page="contact" class="nav-link">CONTACT</a>
+  </nav>
+
+  <div class="flex items-center gap-3 pointer-events-auto">
+    <a href="network.html#candidate" id="nav-cta" class="btn-primary hidden md:inline-flex px-5 py-2.5 font-mono text-[11px] tracking-widest font-medium">BECOME A CANDIDATE</a>
+
+    <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden w-12 h-12 rounded-full bg-plum/80 backdrop-blur-md border border-plumlight text-parchment flex items-center justify-center">
+      <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Mobile menu drawer -->
+<div id="menu-overlay" class="fixed inset-0 bg-ink/70 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+<nav id="mobile-menu" aria-hidden="true" class="fixed top-0 right-0 h-full w-72 max-w-[80%] bg-ink border-l border-plumlight z-50 translate-x-full transition-transform duration-300 md:hidden flex flex-col px-8 pt-24 pb-10 gap-5 overflow-y-auto">
+  <a href="index.html" data-page="index" class="menu-link text-parchment font-mono text-sm tracking-widest">HOME</a>
+  <a href="about.html" data-page="about" class="menu-link text-parchment font-mono text-sm tracking-widest">ABOUT</a>
+  <a href="network.html" data-page="network" class="menu-link text-parchment font-mono text-sm tracking-widest">GET INVOLVED</a>
+  <a href="news.html" data-page="news" class="menu-link text-parchment font-mono text-sm tracking-widest">NEWS</a>
+  <a href="contact.html" data-page="contact" class="menu-link text-parchment font-mono text-sm tracking-widest">CONTACT</a>
+  <a href="network.html#candidate" class="menu-link text-sash font-mono text-sm tracking-widest">BECOME A CANDIDATE</a>
+</nav>
+
+<!-- Back to top floating button -->
+<button id="back-to-top" aria-label="Back to top" class="fixed bottom-8 left-8 z-40 w-12 h-12 rounded-full bg-plum/80 backdrop-blur-md border border-plumlight text-parchment flex items-center justify-center opacity-0 pointer-events-none translate-y-3 transition-all duration-300">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<section id="join-2026" class="relative bg-ink px-6 md:px-16 py-24 md:py-32 overflow-hidden">
+
+  <!-- Interactive floating photo collage background -->
+  <div class="collage-bg" aria-hidden="true">
+    <div class="collage-photo" style="--x:2%; --y:6%; --rot:-7deg; --w:14rem;" tabindex="0">
+      <img src="assets/join-1.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="collage-fallback"><i class="fa-solid fa-image"></i></div>
+    </div>
+    <div class="collage-photo" style="--x:78%; --y:4%; --rot:6deg; --w:12rem;" tabindex="0">
+      <img src="assets/join-2.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="collage-fallback"><i class="fa-solid fa-image"></i></div>
+    </div>
+    <div class="collage-photo" style="--x:10%; --y:62%; --rot:5deg; --w:13rem;" tabindex="0">
+      <img src="assets/join-3.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="collage-fallback"><i class="fa-solid fa-image"></i></div>
+    </div>
+    <div class="collage-photo" style="--x:82%; --y:58%; --rot:-5deg; --w:14rem;" tabindex="0">
+      <img src="assets/join-4.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="collage-fallback"><i class="fa-solid fa-image"></i></div>
+    </div>
+    <div class="collage-photo collage-photo-hide-sm" style="--x:38%; --y:2%; --rot:3deg; --w:10rem;" tabindex="0">
+      <img src="assets/join-5.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="collage-fallback"><i class="fa-solid fa-image"></i></div>
+    </div>
+    <div class="collage-photo collage-photo-hide-sm" style="--x:44%; --y:72%; --rot:-4deg; --w:10rem;" tabindex="0">
+      <img src="assets/join-6.jpg" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="collage-fallback"><i class="fa-solid fa-image"></i></div>
+    </div>
+  </div>
+  <div class="collage-scrim" aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto text-center">
+    <div class="join-card mx-auto max-w-2xl rounded-lg px-6 py-10 md:px-14 md:py-14">
+      <p class="eyebrow text-sash text-xs md:text-sm mb-6">MR. GAY WORLD 2026</p>
+      <h2 class="font-display font-semibold text-parchment text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-6">
+        JOIN MR. GAY WORLD 2026
+      </h2>
+      <p class="text-parchment/75 text-base md:text-lg leading-relaxed mb-10">
+        A new generation of representatives is stepping onto the world stage. Apply through your National Director, or contact us directly if your country has none yet.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="network.html#candidate" class="btn-primary px-8 py-3.5 font-mono text-xs tracking-widest font-medium">BECOME A CANDIDATE</a>
+        <a href="#schedule-2026" class="btn-outline px-8 py-3.5 font-mono text-xs tracking-widest font-medium">VIEW MR. GAY WORLD 2026</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="competition" class="bg-parchment px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">THE COMPETITION</p>
+    <h2 class="font-display font-semibold text-ink text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-6 max-w-4xl">
+      MORE THAN WHAT HAPPENS ON STAGE
+    </h2>
+    <p class="text-ink/80 text-base md:text-lg leading-relaxed max-w-2xl mb-16">
+      A week of advocacy, interviews, presentations, and culture, built to find a representative, not a perfect man.
+    </p>
+
+    <!-- Staggered masonry photo gallery -->
+    <div class="competition-grid">
+      <a href="#" class="competition-photo" style="--offset: 0rem;" data-caption="Advocacy Presentation">
+        <img src="assets/competition-1.jpg" alt="Advocacy presentation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="competition-fallback"><i class="fa-solid fa-image"></i></div>
+        <span class="competition-caption">Advocacy Presentation</span>
+      </a>
+      <a href="#" class="competition-photo" style="--offset: 2.5rem;" data-caption="Photoshoot">
+        <img src="assets/competition-2.jpg" alt="Photoshoot" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="competition-fallback"><i class="fa-solid fa-image"></i></div>
+        <span class="competition-caption">Photoshoot</span>
+      </a>
+      <a href="#" class="competition-photo" style="--offset: -1.5rem;" data-caption="Media Night">
+        <img src="assets/competition-3.jpg" alt="Media Night" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="competition-fallback"><i class="fa-solid fa-image"></i></div>
+        <span class="competition-caption">Media Night</span>
+      </a>
+      <a href="#" class="competition-photo" style="--offset: 1.5rem;" data-caption="Coronation">
+        <img src="assets/competition-4.jpg" alt="Coronation" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="competition-fallback"><i class="fa-solid fa-image"></i></div>
+        <span class="competition-caption">Coronation</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- COMPETITION GALLERY LIGHTBOX                                  -->
+<!-- ============================================================ -->
+<div id="competition-lightbox" class="competition-lightbox hidden" role="dialog" aria-modal="true" aria-label="Competition photo viewer">
+  <button id="competition-lightbox-close" type="button" aria-label="Close photo viewer" class="competition-lightbox-close"><i class="fa-solid fa-xmark"></i></button>
+  <div class="competition-lightbox-inner">
+    <img id="competition-lightbox-img" src="" alt="">
+    <p id="competition-lightbox-caption" class="competition-lightbox-caption"></p>
+  </div>
+</div>
+
+<section id="schedule-2026" class="bg-ink px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">THE NEXT INTERNATIONAL EDITION</p>
+    <h2 class="font-display font-semibold text-parchment text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-8 max-w-4xl">
+      THE NEW ERA CONTINUES
+    </h2>
+    <p class="text-parchment/75 text-base md:text-lg leading-relaxed max-w-3xl mb-16">
+      Mr. Gay World 2026 will bring representatives from around the world together from November 22 to December 1, 2026. Throughout the international competition, delegates will participate in advocacy, media, cultural, community, sponsor, and competition activities leading to the Mr. Gay World 2026 Coronation.
+    </p>
+
+    <!-- Timeline: chronological schedule, numbering reflects real day order -->
+    <div class="relative">
+      <div class="hidden md:block absolute left-[7.5rem] top-0 bottom-0 w-px bg-plumlight"></div>
+      <div class="space-y-8">
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 22</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">International Delegate Arrival</p>
+            <p class="text-parchment/60 text-sm mt-1">Delegates arrive and check in for the start of competition week.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 23</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Media Launch, Official Sashing &amp; Rehearsal</p>
+            <p class="text-parchment/60 text-sm mt-1">Delegates are introduced to the press and officially sashed to represent their countries.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 24</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Tourism &amp; Cultural Activities</p>
+            <p class="text-parchment/60 text-sm mt-1">Delegates explore the host destination's culture and landmarks.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 25</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Official Candidate Shoot</p>
+            <p class="text-parchment/60 text-sm mt-1">Official portraits and campaign imagery for each delegate.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 26</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Advocacy Presentation &amp; National Directors' Meeting</p>
+            <p class="text-parchment/60 text-sm mt-1">Delegates present the causes they represent, alongside a meeting of National Directors.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 27</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Community Service &amp; Rehearsal</p>
+            <p class="text-parchment/60 text-sm mt-1">Delegates take part in community engagement activities and rehearse for coronation night.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 28</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Sponsor Activities, Social Night &amp; Quiz Night</p>
+            <p class="text-parchment/60 text-sm mt-1">A full day connecting delegates with official sponsors and partners, followed by evening social events.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 29</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Rest Day</p>
+            <p class="text-parchment/60 text-sm mt-1">A scheduled day off ahead of final rehearsals and coronation.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">NOV 30</div>
+          <div class="flex-1 bg-plum border border-plumlight rounded-lg px-6 py-5">
+            <p class="font-display text-parchment text-lg font-semibold">Full Rehearsal</p>
+            <p class="text-parchment/60 text-sm mt-1">Full run-through of the coronation night program.</p>
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center gap-2 md:gap-8">
+          <div class="md:w-32 shrink-0 font-mono text-sash text-sm tracking-wide">DEC 1</div>
+          <div class="flex-1 bg-sash rounded-lg px-6 py-5">
+            <p class="font-display text-ink text-lg font-semibold">Mr. Gay World 2026 Coronation</p>
+            <p class="text-ink/70 text-sm mt-1">Mr. Gay World 2026 is crowned before delegates, press, and a global audience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="font-display italic text-sash text-xl md:text-2xl max-w-2xl mt-16">
+      Different countries. Different stories. One global stage.
+    </p>
+  </div>
+</section>
+
+<section id="news" class="bg-ink px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">NEWS &amp; STORIES</p>
+    <h2 class="font-display font-semibold text-parchment text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-6 max-w-4xl">
+      FROM AROUND THE WORLD
+    </h2>
+    <div class="text-parchment/75 text-base md:text-lg leading-relaxed max-w-3xl mb-8 space-y-4">
+      <p>Follow stories and developments from across the international Mr. Gay World network.</p>
+      <p>
+        Discover international competition announcements, candidate stories, advocacy initiatives, National Director updates, titleholder activities, partnerships, host destinations, and important developments from the organization.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-14">
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">INTERNATIONAL</span>
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">CANDIDATES</span>
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">TITLEHOLDERS</span>
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">ADVOCACY</span>
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">NATIONAL DIRECTORS</span>
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">PARTNERSHIPS</span>
+      <span class="font-mono text-[10px] tracking-widest text-sash border border-sash/40 rounded-full px-3 py-1.5">HOST DESTINATIONS</span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 md:gap-0">
+      <a href="https://www.gmanetwork.com/news/lifestyle/content/807397/philippine-bet-kodie-macayan-wins-mr-gay-world-2020/story/" target="_blank" rel="noopener noreferrer"
+         class="card-pillar group bg-plum border border-plumlight rounded-lg overflow-hidden md:-mr-6 md:mt-0 relative z-10">
+        <div class="h-44 bg-plumlight overflow-hidden">
+          <img src="assets/News1.jpg" alt="Philippine bet Kodie Macayan wins Mr. Gay World 2020" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <p class="eyebrow text-sash text-xs mb-2">GMA NETWORK &middot; INTERNATIONAL</p>
+          <p class="font-display text-parchment text-base font-semibold leading-snug">Philippine bet Kodie Macayan wins Mr. Gay World 2020</p>
+        </div>
+      </a>
+
+      <a href="https://gaynation.co/mr-gay-world-2025-a-new-era-under-filipino-leadership/" target="_blank" rel="noopener noreferrer"
+         class="card-pillar group bg-plum border border-plumlight rounded-lg overflow-hidden md:mt-10 relative z-20">
+        <div class="h-44 bg-plumlight overflow-hidden">
+          <img src="assets/News2.jpg" alt="Mr. Gay World 2025: A new era under Filipino leadership" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <p class="eyebrow text-sash text-xs mb-2">GAY NATION &middot; INTERNATIONAL</p>
+          <p class="font-display text-parchment text-base font-semibold leading-snug">Mr. Gay World 2025: A new era under Filipino leadership</p>
+        </div>
+      </a>
+
+      <a href="https://www.mambaonline.com/2026/05/11/mr-gay-world-south-africa-2026-grand-finale-to-fire-up-pretoria/" target="_blank" rel="noopener noreferrer"
+         class="card-pillar group bg-plum border border-plumlight rounded-lg overflow-hidden md:-ml-6 md:mt-0 relative z-10">
+        <div class="h-44 bg-plumlight overflow-hidden">
+          <img src="assets/News3.jpg" alt="Mr Gay World South-Africa 2026 grand finale to fire up Pretoria" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        </div>
+        <div class="p-6">
+          <p class="eyebrow text-sash text-xs mb-2">MAMBAONLINE &middot; NATIONAL DIRECTORS</p>
+          <p class="font-display text-parchment text-base font-semibold leading-snug">Mr Gay World South-Africa 2026 grand finale to fire up Pretoria</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-ink px-6 md:px-16 pt-20 pb-10 border-t border-plumlight">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-14">
+      <p class="font-display text-parchment text-2xl font-semibold mb-4">MR. GAY WORLD</p>
+      <p class="text-parchment/60 text-sm leading-relaxed max-w-xl">
+        Mr. Gay World is an international pageant and LGBTQIA+ organization rooted in advocacy, representation, authenticity, leadership, and global community impact.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-10 mb-16">
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">ABOUT</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="about.html#about" class="hover:text-sash transition-colors">Who We Are</a></li>
+          <li><a href="about.html#new-era" class="hover:text-sash transition-colors">Our History</a></li>
+          <li><a href="about.html#new-era" class="hover:text-sash transition-colors">The New Era</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">COMPETITION</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="news.html#schedule-2026" class="hover:text-sash transition-colors">Mr. Gay World 2026</a></li>
+          <li><a href="network.html#candidate" class="hover:text-sash transition-colors">Become a Candidate</a></li>
+          <li><a href="network.html#national-director" class="hover:text-sash transition-colors">National Directors</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">GET INVOLVED</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="network.html#national-director" class="hover:text-sash transition-colors">Become a National Director</a></li>
+          <li><a href="network.html#host-country" class="hover:text-sash transition-colors">Host Mr. Gay World</a></li>
+          <li><a href="network.html#partnerships" class="hover:text-sash transition-colors">Partnerships</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">ADVOCACY</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="index.html#stand-for" class="hover:text-sash transition-colors">What We Stand For</a></li>
+          <li><a href="about.html#advocacy" class="hover:text-sash transition-colors">Our Advocacy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">CONNECT</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="news.html#news" class="hover:text-sash transition-colors">News</a></li>
+          <li><a href="news.html#news" class="hover:text-sash transition-colors">Media</a></li>
+          <li><a href="contact.html" class="hover:text-sash transition-colors">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sash-divider mb-8"></div>
+
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+  <p class="text-parchment/50 text-xs font-mono tracking-wide">© 2026 Mr. Gay World Organization. All Rights Reserved.</p>
+  <div class="flex gap-5 text-parchment/60 text-lg">
+    <a href="https://www.instagram.com/officialmrgayworld?igsi=NHkzamx4NTEzZjd1" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-sash transition-colors"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.facebook.com/mgworg" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-sash transition-colors"><i class="fa-brands fa-facebook"></i></a>
+    <a href="https://x.com/mgworg?lang=en" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="hover:text-sash transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@MrGayWorldofficial" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="hover:text-sash transition-colors"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</div>
+  </div>
+</footer>
+
+
+<!-- ============================================================ -->
+<!-- COOKIE / GDPR PREFERENCES BANNER                              -->
+<!-- ============================================================ -->
+<div id="cookie-banner" class="cookie-hidden" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+  <p class="text-parchment/90 text-sm leading-relaxed mb-4">
+    We use cookies to enhance your pageant experience and analyze global web traffic.
+  </p>
+  <div class="flex flex-wrap items-center gap-3">
+    <button id="cookie-accept-all" class="cookie-btn">ACCEPT ALL</button>
+    <button id="cookie-reject-optional" class="cookie-btn">REJECT OPTIONAL</button>
+    <button id="cookie-preferences-toggle" class="cookie-btn">PREFERENCES</button>
+  </div>
+</div>
+
+<div id="cookie-preferences-modal" class="hidden">
+  <div id="cookie-preferences-panel">
+    <h3 class="font-display text-parchment text-xl font-semibold mb-2">Cookie Preferences</h3>
+    <p class="text-parchment/70 text-sm leading-relaxed mb-2">
+      Choose which categories of cookies Mr. Gay World may use. You can update this at any time.
+    </p>
+
+    <div class="cookie-pref-row">
+      <div>
+        <p class="text-parchment text-sm font-semibold">Necessary</p>
+        <p class="text-parchment/60 text-xs leading-relaxed">Required for core site functionality. Always active.</p>
+      </div>
+      <label class="cookie-switch">
+        <input type="checkbox" checked disabled>
+        <span class="cookie-switch-track"></span>
+      </label>
+    </div>
+
+    <div class="cookie-pref-row">
+      <div>
+        <p class="text-parchment text-sm font-semibold">Analytics</p>
+        <p class="text-parchment/60 text-xs leading-relaxed">Helps us understand global traffic and improve the site.</p>
+      </div>
+      <label class="cookie-switch">
+        <input type="checkbox" id="cookie-pref-analytics" checked>
+        <span class="cookie-switch-track"></span>
+      </label>
+    </div>
+
+    <div class="cookie-pref-row">
+      <div>
+        <p class="text-parchment text-sm font-semibold">Marketing</p>
+        <p class="text-parchment/60 text-xs leading-relaxed">Used for franchise and campaign outreach relevance.</p>
+      </div>
+      <label class="cookie-switch">
+        <input type="checkbox" id="cookie-pref-marketing">
+        <span class="cookie-switch-track"></span>
+      </label>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mt-6">
+      <button id="cookie-save-preferences" class="cookie-btn" style="background:var(--gold); color:#0B0A10;">SAVE PREFERENCES</button>
+      <button id="cookie-close-preferences" class="cookie-btn" style="background:transparent; border:1px solid var(--glass-border); color:#F5F4F0;">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="script.js" defer></script>
+</body>
+</html>

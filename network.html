@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>Get Involved | Mr. Gay World International</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+
+    theme: {
+      extend: {
+        colors: {
+          ink: '#120E17',
+          plum: '#241B2E',
+          plumlight: '#332740',
+          parchment: '#F3EDE4',
+          parchmentdark: '#E7DFD1',
+          sash: '#C6A15B',
+          sashlight: '#DDBE84',
+          signal: '#E14B3C',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F3EDE4; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.22em;
+    font-weight: 500;
+  }
+
+  /* Signature sash motif: a diagonal ribbon used as a section marker */
+  .sash-mark {
+    position: relative;
+    display: inline-block;
+    padding-left: 2rem;
+  }
+  .sash-mark::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1.5rem;
+    height: 3px;
+    background: #C6A15B;
+    transform: translateY(-50%) rotate(-8deg);
+  }
+
+  .sash-divider {
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent 0%, #C6A15B 15%, #C6A15B 85%, transparent 100%);
+    transform: rotate(-1deg);
+  }
+
+  .card-pillar {
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .card-pillar:hover {
+    transform: translateY(-6px);
+    border-color: #C6A15B;
+  }
+
+  .btn-primary {
+    background-color: #C6A15B;
+    color: #120E17;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+  }
+  .btn-primary:hover { background-color: #DDBE84; transform: translateY(-2px); }
+
+  .btn-outline {
+    border: 1.5px solid #F3EDE4;
+    color: #F3EDE4;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+  .btn-outline:hover { background-color: #F3EDE4; color: #120E17; transform: translateY(-2px); }
+
+  .btn-outline-dark {
+    border: 1.5px solid #120E17;
+    color: #120E17;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  }
+  .btn-outline-dark:hover { background-color: #120E17; color: #F3EDE4; transform: translateY(-2px); }
+
+  /* Fallback layout for the hero, independent of the Tailwind CDN script.
+     cdn.tailwindcss.com compiles utility classes in the browser at runtime,
+     so on a slower/offline local connection (e.g. VS Code Live Server) it
+     can load after first paint, or get blocked outright, and the hero
+     would otherwise show blank until/unless it loads. These plain rules
+     guarantee the hero is visible immediately either way. */
+  #hero { position: relative; width: 100%; min-height: 100vh; overflow: hidden; background-color: var(--bg-black, #0B0A10); }
+  #hero-video-wrap { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-pillar, .btn-primary, .btn-outline, .btn-outline-dark { transition: none; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #C6A15B;
+    outline-offset: 3px;
+  }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="font-body text-ink antialiased" data-page="network">
+
+<!-- ============================================================ -->
+<!-- SITE HEADER: LOGO + DESKTOP NAV + MOBILE MENU TOGGLE          -->
+<!-- ============================================================ -->
+<div class="fixed top-5 left-5 right-5 md:top-6 md:left-8 md:right-8 z-50 flex items-center justify-between pointer-events-none">
+  <a href="index.html" id="site-logo" aria-label="Mr. Gay World, back to home" class="flex items-center pointer-events-auto">
+    <img src="assets/MGWlogo.jpg" alt="Mr. Gay World logo" class="h-12 md:h-14 w-auto">
+  </a>
+
+  <!-- Desktop navigation, visible from md breakpoint up -->
+  <nav id="desktop-nav" aria-label="Primary" class="hidden md:flex items-center gap-6 pointer-events-auto rounded-full px-7 py-3">
+    <a href="index.html" data-page="index" class="nav-link">HOME</a>
+    <a href="about.html" data-page="about" class="nav-link">ABOUT</a>
+    <a href="network.html" data-page="network" class="nav-link">GET INVOLVED</a>
+    <a href="news.html" data-page="news" class="nav-link">NEWS</a>
+    <a href="contact.html" data-page="contact" class="nav-link">CONTACT</a>
+  </nav>
+
+  <div class="flex items-center gap-3 pointer-events-auto">
+    <a href="network.html#candidate" id="nav-cta" class="btn-primary hidden md:inline-flex px-5 py-2.5 font-mono text-[11px] tracking-widest font-medium">BECOME A CANDIDATE</a>
+
+    <button id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden w-12 h-12 rounded-full bg-plum/80 backdrop-blur-md border border-plumlight text-parchment flex items-center justify-center">
+      <i class="fa-solid fa-bars text-lg" id="menu-icon"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Mobile menu drawer -->
+<div id="menu-overlay" class="fixed inset-0 bg-ink/70 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+<nav id="mobile-menu" aria-hidden="true" class="fixed top-0 right-0 h-full w-72 max-w-[80%] bg-ink border-l border-plumlight z-50 translate-x-full transition-transform duration-300 md:hidden flex flex-col px-8 pt-24 pb-10 gap-5 overflow-y-auto">
+  <a href="index.html" data-page="index" class="menu-link text-parchment font-mono text-sm tracking-widest">HOME</a>
+  <a href="about.html" data-page="about" class="menu-link text-parchment font-mono text-sm tracking-widest">ABOUT</a>
+  <a href="network.html" data-page="network" class="menu-link text-parchment font-mono text-sm tracking-widest">GET INVOLVED</a>
+  <a href="news.html" data-page="news" class="menu-link text-parchment font-mono text-sm tracking-widest">NEWS</a>
+  <a href="contact.html" data-page="contact" class="menu-link text-parchment font-mono text-sm tracking-widest">CONTACT</a>
+  <a href="network.html#candidate" class="menu-link text-sash font-mono text-sm tracking-widest">BECOME A CANDIDATE</a>
+</nav>
+
+<!-- Back to top floating button -->
+<button id="back-to-top" aria-label="Back to top" class="fixed bottom-8 left-8 z-40 w-12 h-12 rounded-full bg-plum/80 backdrop-blur-md border border-plumlight text-parchment flex items-center justify-center opacity-0 pointer-events-none translate-y-3 transition-all duration-300">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<section id="candidate" class="bg-parchment px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">REPRESENT YOUR COUNTRY</p>
+    <h2 class="font-display font-semibold text-ink text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-10 max-w-4xl">
+      REPRESENT YOUR COUNTRY
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
+      <div class="text-ink/80 text-base md:text-lg leading-relaxed space-y-5">
+        <p>
+          Mr. Gay World welcomes gay men who are prepared to represent their country with purpose, professionalism, authenticity, and commitment.
+        </p>
+        <p>
+          In countries with an official Mr. Gay World National Director, candidates should apply through their recognized national organization or official national selection process.
+        </p>
+
+        <h3 class="font-display text-ink text-lg font-semibold pt-2">What If My Country Does Not Have a National Director?</h3>
+        <p>
+          If your country currently has no official Mr. Gay World National Director, you may contact the international organization directly. Our team will review your inquiry and advise you regarding the available process for representation, eligibility, and participation.
+        </p>
+      </div>
+
+      <div class="bg-plum rounded-lg p-8 md:p-10">
+        <h3 class="font-display text-parchment text-xl font-semibold mb-3">What We Want Candidates to Understand</h3>
+        <p class="text-parchment/70 text-sm leading-relaxed mb-5">
+          Becoming a Mr. Gay World candidate is not simply about entering an international pageant. You will be representing:
+        </p>
+        <ul class="space-y-3 text-parchment/75 text-sm leading-relaxed mb-6">
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Your country</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Your community</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Your advocacy</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Your National Director or national organization</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>The values and standards of Mr. Gay World</span></li>
+        </ul>
+        <p class="text-parchment/70 text-sm leading-relaxed mb-8">
+          Candidates should be prepared for media activities, advocacy presentations, interviews, cultural exchange, competition activities, community engagement, and international representation.
+        </p>
+        <a href="contact.html#contact" class="btn-primary inline-flex items-center gap-2 px-7 py-3.5 font-mono text-xs tracking-widest font-medium">
+          <i class="fa-solid fa-envelope"></i> APPLY / INQUIRE AS A CANDIDATE
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="global-network" class="bg-ink px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">OUR GLOBAL NETWORK</p>
+    <h2 class="font-display font-semibold text-parchment text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-8 max-w-4xl">
+      MANY COUNTRIES. ONE INTERNATIONAL ORGANIZATION.
+    </h2>
+    <div class="max-w-3xl text-parchment/75 text-base md:text-lg leading-relaxed space-y-4 mb-16">
+      <p>
+        Mr. Gay World is built through the collaboration of National Directors, delegates, titleholders, partners, advocacy organizations, host destinations, and communities from around the world.
+      </p>
+      <p>
+        Every country brings something different to Mr. Gay World. Different cultures. Different LGBTQIA+ experiences. Different challenges. Different approaches to advocacy. Different stories.
+      </p>
+      <p>
+        The role of the international organization is not to erase those differences. It is to create a global platform where they can be represented.
+      </p>
+    </div>
+
+    <!-- ============================================================
+         INTERACTIVE WORLD MAP
+         Placeholder for an embedded map (Mapbox, Google Maps, amCharts,
+         or similar) plotting every recognized franchise. Swap this div
+         for your map library's embed/container element — id is already
+         wired for that.
+    ============================================================ -->
+    <div id="world-map" class="w-full h-[380px] sm:h-[480px] md:h-[550px] rounded-xl border border-sash/30 bg-plum/60 backdrop-blur-md shadow-[0_0_25px_rgba(212,175,55,0.15)] overflow-hidden"></div>
+  </div>
+</section>
+
+<section id="national-director" class="bg-parchment px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">GLOBAL FRANCHISE NETWORK</p>
+    <h2 class="font-display font-semibold text-ink text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-10 max-w-4xl">
+      BRING MR. GAY WORLD TO YOUR COUNTRY
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+      <div class="text-ink/80 text-base md:text-lg leading-relaxed space-y-5">
+        <p>
+          Mr. Gay World operates internationally through its network of official National Directors and franchise holders. A National Director is responsible for developing and representing the official Mr. Gay World organization within his or her licensed territory.
+        </p>
+        <p>
+          National Directors may organize a national competition or approved selection process, develop national advocacy initiatives, build partnerships, promote the Mr. Gay World brand, prepare their official delegate, and participate in the international organization.
+        </p>
+        <p>
+          Becoming a National Director is not an employment position. It is an official franchise and licensing opportunity within the Mr. Gay World international network.
+        </p>
+      </div>
+
+      <div class="bg-white border border-parchmentdark rounded-lg p-8 md:p-10">
+        <h3 class="font-display text-ink text-lg font-semibold mb-6">National Director Responsibilities May Include</h3>
+        <ul class="space-y-3 text-ink/75 text-sm leading-relaxed">
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Developing the Mr. Gay World brand within the licensed country</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Selecting the country's official international representative</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Organizing national competitions or approved candidate-selection programs</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Preparing delegates for the international competition</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Developing advocacy and community programs</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Securing local sponsors and partners</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Coordinating media and promotional activities</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Maintaining the standards and reputation of the international organization</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Communicating regularly with Mr. Gay World International</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Supporting the delegate throughout his international journey</span></li>
+        </ul>
+        <p class="text-ink/60 text-xs font-mono tracking-wide mt-8 mb-3">FOR FRANCHISE INFORMATION AND COUNTRY AVAILABILITY:</p>
+        <a href="mailto:official@mrgayworld.org" class="btn-primary inline-flex items-center gap-2 px-7 py-3.5 font-mono text-xs tracking-widest font-medium">
+          <i class="fa-solid fa-envelope"></i> BECOME A NATIONAL DIRECTOR
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="host-country" class="bg-ink px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">HOST DESTINATION</p>
+    <h2 class="font-display font-semibold text-parchment text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-10 max-w-4xl">
+      HOST THE WORLD
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-10 md:gap-16">
+      <div class="text-parchment/75 text-base md:text-lg leading-relaxed space-y-5">
+        <p>
+          Mr. Gay World welcomes proposals from destinations, tourism organizations, government agencies, producers, event organizations, franchise holders, and qualified partners interested in hosting an international edition of Mr. Gay World.
+        </p>
+        <p>
+          Hosting Mr. Gay World brings delegates, National Directors, international guests, media, partners, and LGBTQIA+ communities together in one destination.
+        </p>
+        <p>
+          A host country becomes more than the location of an international pageant. It becomes part of the history and global identity of Mr. Gay World.
+        </p>
+      </div>
+
+      <div class="bg-plum border border-plumlight rounded-lg p-8 md:p-10">
+        <h3 class="font-display text-parchment text-lg font-semibold mb-6">Hosting Opportunities May Include</h3>
+        <ul class="space-y-3 text-parchment/75 text-sm leading-relaxed">
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Official delegate accommodation</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>International arrival and transportation</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Tourism and cultural activities</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Advocacy events</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Community engagement</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Media activities</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Sponsor activations</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Preliminary competitions</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>Rehearsals</span></li>
+          <li class="flex gap-3"><i class="fa-solid fa-check text-sash mt-1"></i><span>International coronation event</span></li>
+        </ul>
+        <p class="text-parchment/60 text-xs font-mono tracking-wide mt-8 mb-3">FOR HOST-COUNTRY AND HOST-CITY PROPOSALS:</p>
+        <a href="contact.html#contact" class="btn-primary inline-flex items-center gap-2 px-7 py-3.5 font-mono text-xs tracking-widest font-medium">
+          <i class="fa-solid fa-envelope"></i> HOST MR. GAY WORLD
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="partnerships" class="bg-parchment px-6 md:px-16 py-24 md:py-32">
+  <div class="max-w-6xl mx-auto">
+    <p class="eyebrow sash-mark text-sash text-xs md:text-sm mb-6">PARTNERSHIPS</p>
+    <h2 class="font-display font-semibold text-ink text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight mb-8 max-w-4xl">
+      BUILD IMPACT WITH US
+    </h2>
+    <div class="max-w-3xl text-ink/80 text-base md:text-lg leading-relaxed space-y-5 mb-14">
+      <p>Mr. Gay World believes strong advocacy requires strong partnerships.</p>
+      <p>
+        We welcome collaborations with LGBTQIA+ organizations, healthcare institutions, advocacy groups, tourism authorities, government organizations, media companies, global and local brands, community organizations, and businesses that share our commitment to representation, equality, health, inclusion, and responsible visibility.
+      </p>
+      <p>
+        Partnership with Mr. Gay World should mean more than placing a logo on an event. The strongest partnerships help create opportunities, educate communities, expand advocacy, connect people with resources, and create meaningful international engagement.
+      </p>
+    </div>
+
+    <h3 class="font-display text-ink text-lg font-semibold mb-5">Partnership Opportunities</h3>
+    <div class="flex flex-wrap gap-3 mb-14">
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">International Competition Sponsorship</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Advocacy Partnerships</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">HIV &amp; Sexual Health Initiatives</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Mental Health Programs</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Tourism &amp; Destination Partnerships</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Media Partnerships</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Candidate Collaborations</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Titleholder Collaborations</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Community Programs</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">Digital Campaigns</span>
+      <span class="font-mono text-xs tracking-wide text-ink/75 bg-white border border-parchmentdark rounded-full px-4 py-2">National Franchise Partnerships</span>
+    </div>
+
+    <a href="contact.html#contact" class="btn-primary inline-flex items-center gap-2 px-7 py-3.5 font-mono text-xs tracking-widest font-medium">
+  <i class="fa-solid fa-handshake"></i> PARTNER WITH MR. GAY WORLD
+    </a>
+  </div>
+</section>
+
+<footer class="bg-ink px-6 md:px-16 pt-20 pb-10 border-t border-plumlight">
+  <div class="max-w-6xl mx-auto">
+    <div class="mb-14">
+      <p class="font-display text-parchment text-2xl font-semibold mb-4">MR. GAY WORLD</p>
+      <p class="text-parchment/60 text-sm leading-relaxed max-w-xl">
+        Mr. Gay World is an international pageant and LGBTQIA+ organization rooted in advocacy, representation, authenticity, leadership, and global community impact.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-10 mb-16">
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">ABOUT</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="about.html#about" class="hover:text-sash transition-colors">Who We Are</a></li>
+          <li><a href="about.html#new-era" class="hover:text-sash transition-colors">Our History</a></li>
+          <li><a href="about.html#new-era" class="hover:text-sash transition-colors">The New Era</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">COMPETITION</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="news.html#schedule-2026" class="hover:text-sash transition-colors">Mr. Gay World 2026</a></li>
+          <li><a href="network.html#candidate" class="hover:text-sash transition-colors">Become a Candidate</a></li>
+          <li><a href="network.html#national-director" class="hover:text-sash transition-colors">National Directors</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">GET INVOLVED</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="network.html#national-director" class="hover:text-sash transition-colors">Become a National Director</a></li>
+          <li><a href="network.html#host-country" class="hover:text-sash transition-colors">Host Mr. Gay World</a></li>
+          <li><a href="network.html#partnerships" class="hover:text-sash transition-colors">Partnerships</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">ADVOCACY</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="index.html#stand-for" class="hover:text-sash transition-colors">What We Stand For</a></li>
+          <li><a href="about.html#advocacy" class="hover:text-sash transition-colors">Our Advocacy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-sash text-xs mb-4">CONNECT</p>
+        <ul class="space-y-3 text-parchment/70 text-sm">
+          <li><a href="news.html#news" class="hover:text-sash transition-colors">News</a></li>
+          <li><a href="news.html#news" class="hover:text-sash transition-colors">Media</a></li>
+          <li><a href="contact.html" class="hover:text-sash transition-colors">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sash-divider mb-8"></div>
+
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+  <p class="text-parchment/50 text-xs font-mono tracking-wide">© 2026 Mr. Gay World Organization. All Rights Reserved.</p>
+  <div class="flex gap-5 text-parchment/60 text-lg">
+    <a href="https://www.instagram.com/officialmrgayworld?igsi=NHkzamx4NTEzZjd1" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="hover:text-sash transition-colors"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://www.facebook.com/mgworg" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="hover:text-sash transition-colors"><i class="fa-brands fa-facebook"></i></a>
+    <a href="https://x.com/mgworg?lang=en" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" class="hover:text-sash transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="https://www.youtube.com/@MrGayWorldofficial" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="hover:text-sash transition-colors"><i class="fa-brands fa-youtube"></i></a>
+  </div>
+</div>
+  </div>
+</footer>
+
+
+<!-- ============================================================ -->
+<!-- COOKIE / GDPR PREFERENCES BANNER                              -->
+<!-- ============================================================ -->
+<div id="cookie-banner" class="cookie-hidden" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+  <p class="text-parchment/90 text-sm leading-relaxed mb-4">
+    We use cookies to enhance your pageant experience and analyze global web traffic.
+  </p>
+  <div class="flex flex-wrap items-center gap-3">
+    <button id="cookie-accept-all" class="cookie-btn">ACCEPT ALL</button>
+    <button id="cookie-reject-optional" class="cookie-btn">REJECT OPTIONAL</button>
+    <button id="cookie-preferences-toggle" class="cookie-btn">PREFERENCES</button>
+  </div>
+</div>
+
+<div id="cookie-preferences-modal" class="hidden">
+  <div id="cookie-preferences-panel">
+    <h3 class="font-display text-parchment text-xl font-semibold mb-2">Cookie Preferences</h3>
+    <p class="text-parchment/70 text-sm leading-relaxed mb-2">
+      Choose which categories of cookies Mr. Gay World may use. You can update this at any time.
+    </p>
+
+    <div class="cookie-pref-row">
+      <div>
+        <p class="text-parchment text-sm font-semibold">Necessary</p>
+        <p class="text-parchment/60 text-xs leading-relaxed">Required for core site functionality. Always active.</p>
+      </div>
+      <label class="cookie-switch">
+        <input type="checkbox" checked disabled>
+        <span class="cookie-switch-track"></span>
+      </label>
+    </div>
+
+    <div class="cookie-pref-row">
+      <div>
+        <p class="text-parchment text-sm font-semibold">Analytics</p>
+        <p class="text-parchment/60 text-xs leading-relaxed">Helps us understand global traffic and improve the site.</p>
+      </div>
+      <label class="cookie-switch">
+        <input type="checkbox" id="cookie-pref-analytics" checked>
+        <span class="cookie-switch-track"></span>
+      </label>
+    </div>
+
+    <div class="cookie-pref-row">
+      <div>
+        <p class="text-parchment text-sm font-semibold">Marketing</p>
+        <p class="text-parchment/60 text-xs leading-relaxed">Used for franchise and campaign outreach relevance.</p>
+      </div>
+      <label class="cookie-switch">
+        <input type="checkbox" id="cookie-pref-marketing">
+        <span class="cookie-switch-track"></span>
+      </label>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 mt-6">
+      <button id="cookie-save-preferences" class="cookie-btn" style="background:var(--gold); color:#0B0A10;">SAVE PREFERENCES</button>
+      <button id="cookie-close-preferences" class="cookie-btn" style="background:transparent; border:1px solid var(--glass-border); color:#F5F4F0;">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="script.js" defer></script>
+</body>
+</html>
